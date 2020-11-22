@@ -1,0 +1,556 @@
+<html>
+<head>
+<script src="jquery.min.js"></script>
+<style>
+/* Set height of body and the document to 100% to enable "full page tabs" */
+body, html {
+	height: 100%;
+	margin: 0;
+	font-family: Arial;
+}
+/* Style tab links */
+.tablink {
+	background-color: #881106;
+	color: white;
+	float: left;
+	border: none;
+	outline: none;
+	//cursor: pointer;
+	padding: 14px 16px;
+	font-size: 35px;
+	width: 100%;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+	color: black;
+	display: none;
+	padding: 100px 20px;
+	height: 100%;
+}
+
+
+.currNet{
+	display: block;
+	width: 100%;
+	border: none;
+	background-color: #777;
+	padding: 14px 28px;
+	font-size: 16px;
+	cursor: pointer;
+	text-align: center;
+	color: white;
+}
+
+.headerbutton{
+display: block;
+	width: 100%;
+	border: none;
+	background-color: #3395b8;
+	padding: 14px 28px;
+	font-size: 16px;
+	cursor: pointer;
+	text-align: center;
+	color: white;
+}
+
+.refreshBtn{
+display: block;
+	width: 100%;
+	border: none;
+	background-color: #777;
+	padding: 14px 28px;
+	font-size: 16px;
+	cursor: pointer;
+	text-align: center;
+	color: white;
+}
+
+.dropDownBtn{
+	display: block;
+	width: 100%;
+	border: none;
+	background-color: #dddddd;
+	padding: 14px 28px;
+	font-size: 16px;
+	cursor: pointer;
+	text-align: center;
+	color: black;
+	font-weight: bold;
+}
+
+table#table1 {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th, td {
+	padding: 8px;
+	text-align: left;
+	border: 1px solid #ddd;
+}
+
+th {
+background-color: #3395b8;
+border: 1px solid #ddd;
+}
+
+th#actionHeader{
+background-color: #3395b8;
+border: 1px solid #ddd;
+color: white;
+text-align: center;
+}
+
+tr:hover {background-color:#f5f5f5;}
+	
+table#commnicationTbl {
+	margin-bottom : 20px;
+}
+table#commnicationTbl tr:(0){
+	font-weight : bolder;
+}
+table#commnicationTbl tr { width : 100%;
+	margin-bottom : 20px;
+	border : 1px;
+}
+table#commnicationTbl tr:nth-child(even) td:nth-child(odd) {
+	background-color: #dddddd;
+}
+
+table#commnicationTbl td:nth-child(even) {
+	padding:0 ;
+}
+
+#localInformation input[type="submit"]{
+	background-color: #A72217;
+	border: none;
+	color: white;
+	padding: 16px 32px;
+	text-decoration: none;
+	margin: 4px 2px;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: initial;
+}
+
+#cloudInformation input[type="submit"]{
+	background-color: #A72217;
+	border: none;
+	color: white;
+	padding: 16px 32px;
+	text-decoration: none;
+	margin: 4px 2px;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: initial;
+}
+
+#cloudInformation input[type="button"]{
+	background-color: #A72217;
+	border: none;
+	color: white;
+	padding: 16px 32px;
+	text-decoration: none;
+	margin: 4px 2px;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: initial;
+}
+
+#cloudInformation input[type=submit]:hover {
+	background-color: #720A01;
+}
+table#commnicationTbl input[type="text"], input[type="password"] { border: none;
+height:100%; 
+}
+
+select option{
+	zoom: 1.1;
+}
+
+.ui-widget-header {
+	background : #720A01;
+}
+
+.ui-widget-content, .ui-dialog-content{
+	background : #EEEEEE;
+}
+
+table#networkTable {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+table#networkTable td#message {
+border: none;
+}
+
+table#table1 tr:nth-child(even) {
+  background-color: #d8ebe9;
+}
+</style>
+</head>
+<body>
+<div>
+<button class="tablink" onclick="openPage('ContactInfoTab', this, 'red')" id="defaultOpen">True Contacts Pvt Ltd.</button>
+
+<div id="ContactInfoTab" class="tabcontent">
+	<div> 
+		
+		<div>
+			<form action="">
+					<table id="table1">
+						<caption><h1>Contacts Information</h1></caption>
+						<tr>
+						<th><input type="button" class="headerbutton" value="First Name" onclick="sortTable(0);"/></th>
+						<th><input type="button" class="headerbutton" value="Last Name" onclick="sortTable(1);"/></th>
+						<th><input type="button" class="headerbutton" value="Email" onclick="sortTable(2);"/></th>
+						<th><input type="button" class="headerbutton" value="Mobile" onclick="sortTable(3);"/></th>
+						<th><input type="button" class="headerbutton" value="Status" onclick="sortTable(4);"/></th>
+						<th style="text-align:center;" id="actionHeader">Action</th>
+						</tr>
+					</table>
+					<input type="button" class="refreshBtn" value="Refresh Contacts" onclick="getContacts();">
+			</form>
+		</div>
+		<div style="margin-bottom: 100px;">
+			<br>
+			<table id="networkTable">
+					<tr >
+						<td id="message" colspan="4">All fields are mandatory.</td>
+					</tr>
+					<tr>
+						<td>First Name</td><td> <input type="text" id="firstName"/></td>
+						<td>Last Name</td><td> <input type="text" id="lastName"/></td>
+					</tr>
+					<tr><td>Email</td><td> <input type="text" id="emailId"/></td>
+						<td>Mobile</td><td> <input type="text" id="mobileNumber"/></td>
+					</tr>
+			</table>
+			<input type="button" class="currNet" value="Add Contact" onclick="getCurrentNetworks();">
+			
+		</div>
+		<div style="display:none;">
+			<label> Configuration:</label><br>
+			<label>SSID:</label><br>
+			<input type="text" id="ssid" name="ssid" /><br>
+			<label>Password:</label><br>
+			<input type="password" id="password" name="password" /><br><br>
+			<input type="button" id="submit" value="submit" />
+			<input type="button" id="clear" value="clear" />
+		</div>
+	</div>
+</div>
+<div id="CommunicationTab" class="tabcontent">
+	<h3>Communication Mode:</h3>
+	<div>
+		<p>
+		<div style="margin-bottom: 30px;">
+			<select id="modes" name="modes" class="dropDownBtn">
+				<option value="0">local</option>
+				<option value="1">cloud</option>
+			</select>
+		</div>
+	</p>
+	<div id="localInformation" style="display:block;">
+		<input type="submit" value="Submit" id="localSubmit" />
+	</div>
+	<div id="cloudInformation" style="display:none;">
+		<table id="commnicationTbl" style="width: 100%;" cellpadding="0" cellspacing="0">
+		<tr>
+			<td> Field Name </td>
+			<td> Value </td>
+		</tr>
+		<tr>
+		<td>URL:</td>
+		<td><input style="width:100%" type="text" id="url" name="url" /></td>
+		</tr>
+		<tr>
+		<td>UserName:</td>
+		<td><input style="width:100%" type="text" id="ssid1" name="ssid1" /></td>
+		</tr>
+		<tr>
+		<td>Password:</td>
+		<td><input style="width:100%" type="password" id="newPassword" name="newPassword" /></td>
+		</tr>
+		<tr>
+		<td>HTTPS:</td>
+		<td>
+			<input type="radio" id="yes" name="status" value="1" checked>
+			<label for="yes">Yes</label>
+			<input type="radio" id="no" name="status" value="0">
+			<label for="no">No</label></td>
+		</tr>
+		<tr>
+		<td>Network ID:</td>
+		<td><input style="width:100%" type="text" id="network_id" name="network_id" /></td>
+		</tr>
+		<tr>
+		<td>Node ID:</td>
+		<td><input style="width:100%" type="text" id="node_id" name="node_id" /></td>
+		</tr>
+		<tr>
+		<td>Report Interval:</td>
+		<td><input style="width:100%" type="text" id="report_interval" name="report_interval" /></td>
+		</tr>
+		<tr>
+		<td>Reset Interval:</td>
+		<td><input style="width:100%" type="text" id="reset_interval" name="reset_interval" /></td>
+		</tr>
+		</table>
+		<input type="submit" value="Submit" id="submit" />
+		<input type="button" id="clear" value="Clear" />
+	</div>
+	
+	</div>
+</div>
+<div id="FirmwareTab" class="tabcontent">
+	<h3>Firmware Update</h3>
+	<div>
+		<h2>Select Murata firmware File to upload</h2><br>
+	<form method="post" enctype="multipart/form-data" action="/bcg/fwupd">
+		<input type="file" name="name">
+		<input class="button" type="submit" value="Upload">
+	</form>
+	<h2>Select ESP firmware File to upload</h2><br>
+	<form method="post" enctype="multipart/form-data" action="/sys/fwupd">
+		<input type="file" name="name">
+		<input class="button" type="submit" value="Upload">
+	</form>
+	</div>
+	<h2>Device Factory Reset</h2><br>
+	<div style="margin-bottom: 100px;">
+		<input type="button" class="factoryReset" value="Factory Reset">
+	</div>
+</div>
+
+</div>
+<script>
+
+// to open the tabcontent
+function openPage(pageName,elmnt,color) {
+	var i, tabcontent, tablinks;
+	tabcontent = document.getElementsByClassName("tabcontent");
+	for (i = 0; i < tabcontent.length; i++) {
+	tabcontent[i].style.display = "none";
+	}
+	tablinks = document.getElementsByClassName("tablink");
+	for (i = 0; i < tablinks.length; i++) {
+	tablinks[i].style.backgroundColor = "";
+	}
+	document.getElementById(pageName).style.display = "block";
+}
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+
+$("#submit").click(function(){
+	var sta = {};
+	var request_data = {};
+	var SSID = $('#ssid').val();
+	var pass = $('#password').val();
+	var ssid = "";
+	var passphrase = "";
+	sta["ssid"] = SSID;
+	sta["passphrase"] = pass;
+	request_data["sta"] = sta;
+	var string_data = JSON.stringify(request_data);
+	$.ajax({
+		url: 'http://localhost:8080/tc/contact',
+		// data: '{"sta": {"ssid": "abc", "security":"WPA 2PSK", "passphrase":"asas"}}',
+		data:string_data,
+		success: function(json) {
+			console.log("Success", json.errno);
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+		alert(textStatus, errorThrown);
+		},
+
+		//headers: {'Authorization': 'Basic bWFkaHNvbWUxMjM='},
+		beforeSend: function (xhr) {
+		xhr.setRequestHeader ("Authorization", "Basic " + btoa("AUTH_USERNAME" + ":" + "AUTH_PASSWORD"));
+		},
+		type: "POST",
+		contentType: "json",
+		dataType: "json",
+	});
+});
+
+$(document).ready(function(){
+    //alert("Page loaded.");
+	getContacts()
+});
+		
+function getContacts(){
+$("#table1").find("tr:gt(0)").remove();
+	$.ajax({
+		url: 'http://localhost:8080/tc/contact',
+		success: function(json) {
+		console.log("Success", json);
+	var parsedJson = jQuery.parseJSON(json)
+
+	$.each( parsedJson, function( key, value ) {
+	var activationStatus = value.status == true ? "Active" : "Inactive" 
+	var contactId = 'id_' + value.firstName + '_' + value.emailId
+	$("#table1").append('<tr valign="top"><td id="'+ value.firstName +'">'+value.firstName+'</td><td>'+ value.lastName +'</td><td>'+ value.emailId +'</td><td>'+ value.mobileNumber +'</td><td>'+ activationStatus +'</td><td> Edit &nbsp;&nbsp; <input type="button" value="Delete" id="'+ contactId +'" onclick="deleteSelectedContact(id)";> </input></td></tr>');
+});
+	
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+		console.log(textStatus, errorThrown);
+		},
+
+		//headers: {'Authorization': 'Basic bWFkaHNvbWUxMjM='},
+		beforeSend: function (xhr) {
+		xhr.setRequestHeader ("Authorization", "Basic " + btoa("AUTH_USERNAME" + ":" + "AUTH_PASSWORD"));
+		},
+		type: 'GET',
+		contentType: 'json',
+});
+				
+}
+		$(function() {
+			$( "#dialog-6" ).dialog({
+				autoOpen: false, 
+					buttons: {
+					Cancel: function() {
+						$(this).dialog( "close" );
+					},
+					Submit: function() {
+						
+					} 			  
+					},
+					width: 600
+			});
+		});
+		
+function getCurrentNetworks(){
+
+	var firstName = $('#firstName').val();
+	var lastName = $('#lastName').val();
+	var mobileNumber = $('#mobileNumber').val()
+	var emailId = $('#emailId').val();
+	var status = true
+	var id = 'id_' + firstName + '_' + emailId
+	
+	if ((firstName == null || firstName.length == 0) || (lastName == null || lastName.length == 0) || 
+	(emailId == null || emailId.length == 0) || (mobileNumber == null || mobileNumber.length == 0) ){
+	return
+	}
+	
+	var requestData = {};
+	requestData["firstName"] = firstName;
+	requestData["lastName"] = lastName;
+	requestData["mobileNumber"] = mobileNumber;
+	requestData["status"] = status;
+	requestData["emailId"] = emailId;	
+	requestData["id"] = id;
+	
+	var string_data = JSON.stringify(requestData);
+	$.ajax({
+		url: 'http://localhost:8080/tc/contact',
+		data: string_data,
+		success: function(json) {
+		console.log("Success", json);
+		location.reload(true);
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+		console.log(textStatus, errorThrown);
+		},
+
+		//headers: {'Authorization': 'Basic bWFkaHNvbWUxMjM='},
+		beforeSend: function (xhr) {
+		xhr.setRequestHeader ("Authorization", "Basic " + btoa("AUTH_USERNAME" + ":" + "AUTH_PASSWORD"));
+		},
+		type: 'POST',
+		dataType: "json",
+		contentType: "application/json; charset=utf-8"
+});
+}
+
+function deleteSelectedContact(selectedContact) {
+		
+		alert(selectedContact + ' will be deleted.')
+		var requestData = {};
+	requestData["id"] = selectedContact;
+	
+	var string_data = JSON.stringify(requestData);
+	$.ajax({
+		url: 'http://localhost:8080/tc/contact?id='+ selectedContact,
+		data: string_data,
+		success: function(json) {
+		console.log("Success", json);
+		location.reload(true);
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+		console.log(textStatus, errorThrown);
+		},
+
+		//headers: {'Authorization': 'Basic bWFkaHNvbWUxMjM='},
+		beforeSend: function (xhr) {
+		xhr.setRequestHeader ("Authorization", "Basic " + btoa("AUTH_USERNAME" + ":" + "AUTH_PASSWORD"));
+		},
+		type: 'DELETE',
+		dataType: "json",
+		contentType: "application/json; charset=utf-8"
+});
+}
+
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("table1");
+  switching = true;
+  // Set the sorting direction to ascending:
+  dir = "asc";
+  /* Make a loop that will continue until
+  no switching has been done: */
+  while (switching) {
+    // Start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /* Loop through all table rows (except the
+    first, which contains table headers): */
+    for (i = 1; i < (rows.length - 1); i++) {
+      // Start by saying there should be no switching:
+      shouldSwitch = false;
+      /* Get the two elements you want to compare,
+      one from current row and one from the next: */
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /* Check if the two rows should switch place,
+      based on the direction, asc or desc: */
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      // Each time a switch is done, increase this count by 1:
+      switchcount ++;
+    } else {
+      /* If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again. */
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+
+</script>
+</body>
+</html>
