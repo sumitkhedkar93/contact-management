@@ -23,7 +23,7 @@ After building project, please go to directory <project-base-dir>/build/libs and
 Please open browser and type URL => http://localhost:8080/tc
 ```
 
-##Frameworks/Platform used :
+## Frameworks/Platforms used : ##
 ```
 Front-end : 
 	HTML, JQuery, CSS, Ajax

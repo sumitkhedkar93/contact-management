@@ -313,6 +313,8 @@ function addContact(){
 		location.reload(true);
 		},
 		error: function(XMLHttpRequest, textStatus, errorThrown) {
+		var err = JSON.parse(XMLHttpRequest.responseText);
+		alert(err.Error);
 		console.log(textStatus, errorThrown);
 		},
 
