@@ -29,6 +29,7 @@ public class SimpleContactDaoTest {
 			responseObj.put("id", contactDto.getId());
 
 			assertTrue(str.equals(mapper.writeValueAsString(responseObj)));
+			simpleContactDao.deleteContact(contactDto.getId());
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
