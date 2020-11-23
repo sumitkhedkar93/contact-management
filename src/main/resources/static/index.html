@@ -104,63 +104,7 @@ text-align: center;
 
 tr:hover {background-color:#f5f5f5;}
 	
-table#commnicationTbl {
-	margin-bottom : 20px;
-}
-table#commnicationTbl tr:(0){
-	font-weight : bolder;
-}
-table#commnicationTbl tr { width : 100%;
-	margin-bottom : 20px;
-	border : 1px;
-}
-table#commnicationTbl tr:nth-child(even) td:nth-child(odd) {
-	background-color: #dddddd;
-}
 
-table#commnicationTbl td:nth-child(even) {
-	padding:0 ;
-}
-
-#localInformation input[type="submit"]{
-	background-color: #A72217;
-	border: none;
-	color: white;
-	padding: 16px 32px;
-	text-decoration: none;
-	margin: 4px 2px;
-	cursor: pointer;
-	font-weight: bold;
-	font-size: initial;
-}
-
-#cloudInformation input[type="submit"]{
-	background-color: #A72217;
-	border: none;
-	color: white;
-	padding: 16px 32px;
-	text-decoration: none;
-	margin: 4px 2px;
-	cursor: pointer;
-	font-weight: bold;
-	font-size: initial;
-}
-
-#cloudInformation input[type="button"]{
-	background-color: #A72217;
-	border: none;
-	color: white;
-	padding: 16px 32px;
-	text-decoration: none;
-	margin: 4px 2px;
-	cursor: pointer;
-	font-weight: bold;
-	font-size: initial;
-}
-
-#cloudInformation input[type=submit]:hover {
-	background-color: #720A01;
-}
 table#commnicationTbl input[type="text"], input[type="password"] { border: none;
 height:100%; 
 }
@@ -177,12 +121,12 @@ select option{
 	background : #EEEEEE;
 }
 
-table#networkTable {
+table#addContactTable {
 	border-collapse: collapse;
 	width: 100%;
 }
 
-table#networkTable td#message {
+table#addContactTable td#message {
 border: none;
 }
 
@@ -203,11 +147,11 @@ table#table1 tr:nth-child(even) {
 					<table id="table1">
 						<caption><h1>Contacts Information</h1></caption>
 						<tr>
-						<th><input type="button" class="headerbutton" value="First Name" onclick="sortTable(0);"/></th>
-						<th><input type="button" class="headerbutton" value="Last Name" onclick="sortTable(1);"/></th>
-						<th><input type="button" class="headerbutton" value="Email" onclick="sortTable(2);"/></th>
-						<th><input type="button" class="headerbutton" value="Mobile" onclick="sortTable(3);"/></th>
-						<th><input type="button" class="headerbutton" value="Status" onclick="sortTable(4);"/></th>
+						<th><input type="button" class="headerbutton" value="First Name" style="text-align:left;" onclick="sortTable(0);"/></th>
+						<th><input type="button" class="headerbutton" value="Last Name" style="text-align:left;" onclick="sortTable(1);"/></th>
+						<th><input type="button" class="headerbutton" value="Email" style="text-align:left;" onclick="sortTable(2);"/></th>
+						<th><input type="button" class="headerbutton" value="Mobile" style="text-align:left;" onclick="sortTable(3);"/></th>
+						<th><input type="button" class="headerbutton" value="Status" style="text-align:left;" onclick="sortTable(4);"/></th>
 						<th style="text-align:center;" id="actionHeader">Action</th>
 						</tr>
 					</table>
@@ -216,7 +160,7 @@ table#table1 tr:nth-child(even) {
 		</div>
 		<div style="margin-bottom: 100px;">
 			<br>
-			<table id="networkTable">
+			<table id="addContactTable">
 					<tr >
 						<td id="message" colspan="4">All fields are mandatory.</td>
 					</tr>
@@ -227,101 +171,13 @@ table#table1 tr:nth-child(even) {
 					<tr><td>Email</td><td> <input type="text" id="emailId"/></td>
 						<td>Mobile</td><td> <input type="text" id="mobileNumber"/></td>
 					</tr>
+					<tr>
+						<td colspan="2"><input type="button" class="currNet" style="text-align:center;" id="addcontactbtn" value="Add Contact" onclick="addContact();"></td>
+						<td colspan="2"><input type="button" class="currNet" id="cancelcontactbtn" value="Cancel" onclick="clearFields();"></td>
+					</tr>
 			</table>
-			<input type="button" class="currNet" value="Add Contact" onclick="getCurrentNetworks();">
 			
 		</div>
-		<div style="display:none;">
-			<label> Configuration:</label><br>
-			<label>SSID:</label><br>
-			<input type="text" id="ssid" name="ssid" /><br>
-			<label>Password:</label><br>
-			<input type="password" id="password" name="password" /><br><br>
-			<input type="button" id="submit" value="submit" />
-			<input type="button" id="clear" value="clear" />
-		</div>
-	</div>
-</div>
-<div id="CommunicationTab" class="tabcontent">
-	<h3>Communication Mode:</h3>
-	<div>
-		<p>
-		<div style="margin-bottom: 30px;">
-			<select id="modes" name="modes" class="dropDownBtn">
-				<option value="0">local</option>
-				<option value="1">cloud</option>
-			</select>
-		</div>
-	</p>
-	<div id="localInformation" style="display:block;">
-		<input type="submit" value="Submit" id="localSubmit" />
-	</div>
-	<div id="cloudInformation" style="display:none;">
-		<table id="commnicationTbl" style="width: 100%;" cellpadding="0" cellspacing="0">
-		<tr>
-			<td> Field Name </td>
-			<td> Value </td>
-		</tr>
-		<tr>
-		<td>URL:</td>
-		<td><input style="width:100%" type="text" id="url" name="url" /></td>
-		</tr>
-		<tr>
-		<td>UserName:</td>
-		<td><input style="width:100%" type="text" id="ssid1" name="ssid1" /></td>
-		</tr>
-		<tr>
-		<td>Password:</td>
-		<td><input style="width:100%" type="password" id="newPassword" name="newPassword" /></td>
-		</tr>
-		<tr>
-		<td>HTTPS:</td>
-		<td>
-			<input type="radio" id="yes" name="status" value="1" checked>
-			<label for="yes">Yes</label>
-			<input type="radio" id="no" name="status" value="0">
-			<label for="no">No</label></td>
-		</tr>
-		<tr>
-		<td>Network ID:</td>
-		<td><input style="width:100%" type="text" id="network_id" name="network_id" /></td>
-		</tr>
-		<tr>
-		<td>Node ID:</td>
-		<td><input style="width:100%" type="text" id="node_id" name="node_id" /></td>
-		</tr>
-		<tr>
-		<td>Report Interval:</td>
-		<td><input style="width:100%" type="text" id="report_interval" name="report_interval" /></td>
-		</tr>
-		<tr>
-		<td>Reset Interval:</td>
-		<td><input style="width:100%" type="text" id="reset_interval" name="reset_interval" /></td>
-		</tr>
-		</table>
-		<input type="submit" value="Submit" id="submit" />
-		<input type="button" id="clear" value="Clear" />
-	</div>
-	
-	</div>
-</div>
-<div id="FirmwareTab" class="tabcontent">
-	<h3>Firmware Update</h3>
-	<div>
-		<h2>Select Murata firmware File to upload</h2><br>
-	<form method="post" enctype="multipart/form-data" action="/bcg/fwupd">
-		<input type="file" name="name">
-		<input class="button" type="submit" value="Upload">
-	</form>
-	<h2>Select ESP firmware File to upload</h2><br>
-	<form method="post" enctype="multipart/form-data" action="/sys/fwupd">
-		<input type="file" name="name">
-		<input class="button" type="submit" value="Upload">
-	</form>
-	</div>
-	<h2>Device Factory Reset</h2><br>
-	<div style="margin-bottom: 100px;">
-		<input type="button" class="factoryReset" value="Factory Reset">
 	</div>
 </div>
 
@@ -357,7 +213,7 @@ $("#submit").click(function(){
 	var string_data = JSON.stringify(request_data);
 	$.ajax({
 		url: 'http://localhost:8080/tc/contact',
-		// data: '{"sta": {"ssid": "abc", "security":"WPA 2PSK", "passphrase":"asas"}}',
+		
 		data:string_data,
 		success: function(json) {
 			console.log("Success", json.errno);
@@ -389,10 +245,12 @@ $("#table1").find("tr:gt(0)").remove();
 		console.log("Success", json);
 	var parsedJson = jQuery.parseJSON(json)
 
+ var count = 1;
 	$.each( parsedJson, function( key, value ) {
 	var activationStatus = value.status == true ? "Active" : "Inactive" 
 	var contactId = 'id_' + value.firstName + '_' + value.emailId
-	$("#table1").append('<tr valign="top"><td id="'+ value.firstName +'">'+value.firstName+'</td><td>'+ value.lastName +'</td><td>'+ value.emailId +'</td><td>'+ value.mobileNumber +'</td><td>'+ activationStatus +'</td><td> Edit &nbsp;&nbsp; <input type="button" value="Delete" id="'+ contactId +'" onclick="deleteSelectedContact(id)";> </input></td></tr>');
+	$("#table1").append('<tr valign="top"><td id="'+ value.firstName +'">'+value.firstName+'</td><td>'+ value.lastName +'</td><td>'+ value.emailId +'</td><td>'+ value.mobileNumber +'</td><td>'+ activationStatus +'</td><td> <input type="button" value="Edit"  id="'+ count +'" onclick="populateAddContact(id)";> </input> &nbsp;&nbsp; <input type="button" value="Delete" id="'+ contactId +'" onclick="deleteSelectedContact(id)";> </input></td></tr>');
+	count++;
 });
 	
 		},
@@ -424,7 +282,7 @@ $("#table1").find("tr:gt(0)").remove();
 			});
 		});
 		
-function getCurrentNetworks(){
+function addContact(){
 
 	var firstName = $('#firstName').val();
 	var lastName = $('#lastName').val();
@@ -470,7 +328,7 @@ function getCurrentNetworks(){
 
 function deleteSelectedContact(selectedContact) {
 		
-		alert(selectedContact + ' will be deleted.')
+		alert('Selected contact will be deleted.')
 		var requestData = {};
 	requestData["id"] = selectedContact;
 	
@@ -551,6 +409,27 @@ function sortTable(n) {
   }
 }
 
+
+function populateAddContact(view) {
+
+var row = $("#table1").find("tr:eq("+view+")")
+ 
+ 	$("input#firstName").val(row.find("td:eq(0)").text());
+	$("input#lastName").val(row.find("td:eq(1)").text());
+	$("input#mobileNumber").val(row.find("td:eq(3)").text())
+	$("input#emailId").val(row.find("td:eq(2)").text());
+	
+	$("input#addcontactbtn").val("Update")
+}
+
+function clearFields() {
+$('#firstName').val("")
+$('#lastName').val("")
+$('#mobileNumber').val("")
+$('#emailId').val("")
+
+$("input#addcontactbtn").val("Add Contact")
+}
 </script>
 </body>
 </html>

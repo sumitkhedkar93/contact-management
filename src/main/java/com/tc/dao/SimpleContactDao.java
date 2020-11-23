@@ -50,8 +50,8 @@ public class SimpleContactDao implements IContactDao {
 				log.info("file exists : {}", contactFile.getAbsolutePath());
 				loadFile(contactFile);
 			}
-		} catch(Throwable th) {
-			th.printStackTrace();
+		} catch(Exception ex) {
+			ex.printStackTrace();
 			log.error("something went wrong while initializong contact information.");
 		}
 	}

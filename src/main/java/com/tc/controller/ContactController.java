@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tc.dto.ContactDto;
 import com.tc.service.IContactService;
 
-/** 
- * 
+/** This class handles requests corresponding to contact 
+ *  information related calls.
  * @author Sumit Khedkar
  *
  */
@@ -25,7 +25,6 @@ public class ContactController {
 	
 	@GetMapping("contact")
 	public String sendAllContacts() {
-		
 		return this.contactService.getAllContacts();
 	}
 
