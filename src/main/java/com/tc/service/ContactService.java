@@ -41,7 +41,7 @@ public class ContactService implements IContactService {
 		String id = contactDto.getId() == null ? "" + random.nextLong() : contactDto.getId();
 		
 		ContactDto updatedContactDto = new ContactDto(id, contactDto.getFirstName(),
-				contactDto.getLastName(),contactDto.getEmailId(),contactDto.getMobileNumber());
+				contactDto.getLastName(),contactDto.getEmailId(),contactDto.getMobileNumber(), contactDto.getStatus());
 		return contactDao.addContact(updatedContactDto);
 	}
 

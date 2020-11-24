@@ -173,7 +173,15 @@ table#table1 tr:nth-child(even) {
 					</tr>
 					<tr><td>Email</td><td> <input type="text" id="emailId"/></td>
 						<td>Mobile</td><td> <input type="text" id="mobileNumber"/>
-						<td><input type="hidden" id="uniqueId" value=""/></td>
+						<td style="display:none;"><input type="hidden" id="uniqueId" value=""/></td>
+					</tr>
+					<tr id="statusRow" style="display:none;">
+					<td>Status</td>
+					<td> <select style="display:block;" id="activestatus" name="selectStatus">
+							<option value="true">Active</option>
+							<option value="false">Inactive</option>
+						</select>
+					</td>
 					</tr>
 					<tr>
 						<td colspan="2"><input type="button" class="currNet" style="text-align:center;" id="addcontactbtn" value="Add Contact" onclick="addContact();"></td>
@@ -254,7 +262,7 @@ $("#table1").find("tr:gt(0)").remove();
 	$.each( parsedJson, function( key, value ) {
 	var activationStatus = value.status == true ? "Active" : "Inactive" 
 	var contactId = value.id 
-	$("#table1").append('<tr valign="top"><td id="'+ value.firstName +'">'+value.firstName+'</td><td>'+ value.lastName +'</td><td>'+ value.emailId +'</td><td>'+ value.mobileNumber +'</td><td>'+ activationStatus +'</td><td style="display:none;">'+ value.id +'</td><td> <input type="button" value="Edit"  id="'+ count +'" onclick="populateAddContact(id)";> </input> &nbsp;&nbsp; <input type="button" value="Delete" id="'+ contactId +'" onclick="deleteSelectedContact(id)";> </input></td></tr>');
+	$("#table1").append('<tr valign="top"><td id="'+ value.firstName +'">'+value.firstName+'</td><td>'+ value.lastName +'</td><td>'+ value.emailId +'</td><td>'+ value.mobileNumber +'</td><td>'+ activationStatus +'</td><td style="display:none;">'+ value.id +'</td><td style="display:none;">'+ value.status +'</td><td> <input type="button" value="Edit"  id="'+ count +'" onclick="populateAddContact(id)";> </input> &nbsp;&nbsp; <input type="button" value="Delete" id="'+ contactId +'" onclick="deleteSelectedContact(id)";> </input></td></tr>');
 	count++;
 });
 	
@@ -309,6 +317,7 @@ function addContact(){
 	requestData["emailId"] = emailId;	
 	
 	if (id != null && id.length !=0) {
+	requestData["status"] = $("#activestatus").val();
 	requestData["id"] = id;
 	}
 	
@@ -423,6 +432,7 @@ function sortTable(n) {
 
 function populateAddContact(view) {
 
+$("#statusRow").css("display", "block")
 var row = $("#table1").find("tr:eq("+view+")")
  
  	$("input#firstName").val(row.find("td:eq(0)").text());
@@ -430,6 +440,7 @@ var row = $("#table1").find("tr:eq("+view+")")
 	$("input#mobileNumber").val(row.find("td:eq(3)").text())
 	$("input#emailId").val(row.find("td:eq(2)").text());
 	$("input#uniqueId").val(row.find("td:eq(5)").text());
+	$("#activestatus").val(row.find("td:eq(6)").text())
 	
 	$("input#addcontactbtn").val("Update")
 }
@@ -441,6 +452,8 @@ $('#mobileNumber').val("")
 $('#emailId').val("")
 
 $("input#addcontactbtn").val("Add Contact")
+$("#statusRow").css("display", "none")
+$("#activestatus").val("true")
 }
 </script>
 </body>

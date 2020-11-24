@@ -43,6 +43,6 @@ public class SimpleContactDaoTest {
 	}
 	
 	public static ContactDto createContactDto() {
-		return new ContactDto("" + new Random().nextLong(), "firstname","lastname","a@gmail.com","9087345688");
+		return new ContactDto("" + new Random().nextLong(), "firstname","lastname","a@gmail.com","9087345688", true);
 	}
 }
