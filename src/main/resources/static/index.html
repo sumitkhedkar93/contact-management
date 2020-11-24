@@ -29,7 +29,6 @@ body, html {
 	height: 100%;
 }
 
-
 .currNet{
 	display: block;
 	width: 100%;
@@ -40,6 +39,10 @@ body, html {
 	cursor: pointer;
 	text-align: center;
 	color: white;
+}
+
+.hideMe{
+	display: none;
 }
 
 .headerbutton{
@@ -169,7 +172,8 @@ table#table1 tr:nth-child(even) {
 						<td>Last Name</td><td> <input type="text" id="lastName"/></td>
 					</tr>
 					<tr><td>Email</td><td> <input type="text" id="emailId"/></td>
-						<td>Mobile</td><td> <input type="text" id="mobileNumber"/></td>
+						<td>Mobile</td><td> <input type="text" id="mobileNumber"/>
+						<td><input type="hidden" id="uniqueId" value=""/></td>
 					</tr>
 					<tr>
 						<td colspan="2"><input type="button" class="currNet" style="text-align:center;" id="addcontactbtn" value="Add Contact" onclick="addContact();"></td>
@@ -239,6 +243,7 @@ $(document).ready(function(){
 		
 function getContacts(){
 $("#table1").find("tr:gt(0)").remove();
+
 	$.ajax({
 		url: 'http://localhost:8080/tc/contact',
 		success: function(json) {
@@ -248,8 +253,8 @@ $("#table1").find("tr:gt(0)").remove();
  var count = 1;
 	$.each( parsedJson, function( key, value ) {
 	var activationStatus = value.status == true ? "Active" : "Inactive" 
-	var contactId = 'id_' + value.firstName + '_' + value.emailId
-	$("#table1").append('<tr valign="top"><td id="'+ value.firstName +'">'+value.firstName+'</td><td>'+ value.lastName +'</td><td>'+ value.emailId +'</td><td>'+ value.mobileNumber +'</td><td>'+ activationStatus +'</td><td> <input type="button" value="Edit"  id="'+ count +'" onclick="populateAddContact(id)";> </input> &nbsp;&nbsp; <input type="button" value="Delete" id="'+ contactId +'" onclick="deleteSelectedContact(id)";> </input></td></tr>');
+	var contactId = value.id 
+	$("#table1").append('<tr valign="top"><td id="'+ value.firstName +'">'+value.firstName+'</td><td>'+ value.lastName +'</td><td>'+ value.emailId +'</td><td>'+ value.mobileNumber +'</td><td>'+ activationStatus +'</td><td style="display:none;">'+ value.id +'</td><td> <input type="button" value="Edit"  id="'+ count +'" onclick="populateAddContact(id)";> </input> &nbsp;&nbsp; <input type="button" value="Delete" id="'+ contactId +'" onclick="deleteSelectedContact(id)";> </input></td></tr>');
 	count++;
 });
 	
@@ -288,8 +293,8 @@ function addContact(){
 	var lastName = $('#lastName').val();
 	var mobileNumber = $('#mobileNumber').val()
 	var emailId = $('#emailId').val();
+	var id = $('#uniqueId').val();
 	var status = true
-	var id = 'id_' + firstName + '_' + emailId
 	
 	if ((firstName == null || firstName.length == 0) || (lastName == null || lastName.length == 0) || 
 	(emailId == null || emailId.length == 0) || (mobileNumber == null || mobileNumber.length == 0) ){
@@ -302,7 +307,11 @@ function addContact(){
 	requestData["mobileNumber"] = mobileNumber;
 	requestData["status"] = status;
 	requestData["emailId"] = emailId;	
+	
+	if (id != null && id.length !=0) {
 	requestData["id"] = id;
+	}
+	
 	
 	var string_data = JSON.stringify(requestData);
 	$.ajax({
@@ -420,6 +429,7 @@ var row = $("#table1").find("tr:eq("+view+")")
 	$("input#lastName").val(row.find("td:eq(1)").text());
 	$("input#mobileNumber").val(row.find("td:eq(3)").text())
 	$("input#emailId").val(row.find("td:eq(2)").text());
+	$("input#uniqueId").val(row.find("td:eq(5)").text());
 	
 	$("input#addcontactbtn").val("Update")
 }

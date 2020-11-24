@@ -3,6 +3,8 @@ package com.tc.dao;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Random;
+
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -33,17 +35,14 @@ public class SimpleContactDaoTest {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-
 	}
 	
 	@Test
 	public void testGetAllContact() {
-		
 		assertNotNull(this.simpleContactDao.getAllContacts());
 	}
 	
-	
-	private ContactDto createContactDto() {
-		return new ContactDto("firstname","lastname","a@gmail.com","9087345688");
+	public static ContactDto createContactDto() {
+		return new ContactDto("" + new Random().nextLong(), "firstname","lastname","a@gmail.com","9087345688");
 	}
 }

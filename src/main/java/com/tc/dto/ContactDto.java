@@ -17,13 +17,13 @@ public class ContactDto {
 	public ContactDto() {
 	}
 	
-	public ContactDto(String firstName, String lastName, String emailId, String mobileNumber) {
+	public ContactDto(String id, String firstName, String lastName, String emailId, String mobileNumber) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.emailId = emailId;
 		this.mobileNumber = mobileNumber;
 		this.status = true;
-		this.id = "id_" + firstName + "_" + emailId;
+		this.id = id;
 	}
 
 	public String getId() {

@@ -31,7 +31,7 @@ public class SimpleContactDao implements IContactDao {
 	private ObjectMapper mapper = new ObjectMapper();
 	private static final String DB_FILE_NAME = "contact.json";
 	
-	
+	/** Initialize DB in constructor. */
 	public SimpleContactDao() {
 		try {
 			File contactFile = new File(DB_FILE_NAME);
@@ -88,7 +88,7 @@ public class SimpleContactDao implements IContactDao {
 	}
 
 	@Override
-	public String deleteContact(String id) {
+	public synchronized String deleteContact(String id) {
 		ObjectNode responseObj = null;
 		try {
 			contactDtoMap.remove(id);
@@ -104,7 +104,7 @@ public class SimpleContactDao implements IContactDao {
 	}
 
 	@Override
-	public String updateContact(ContactDto contactDto) {
+	public synchronized String updateContact(ContactDto contactDto) {
 		ObjectNode responseObj = null;
 		try {
 			contactDtoMap.put(contactDto.getId(), contactDto);
@@ -119,7 +119,7 @@ public class SimpleContactDao implements IContactDao {
 	}
 
 	@Override
-	public String addContact(ContactDto contactDto) {
+	public synchronized String addContact(ContactDto contactDto) {
 		return updateContact(contactDto);
 	}
 }
