@@ -2,14 +2,14 @@
 
 ## Overview ##
 
-**true-contacts** is a web application built up using 'Spring Boot' and 'JQuery' framework  that basically provides functionality of maintaining contacts.  
+**true-contacts** is a web application built up using 'Spring Boot', 'HTML' and 'JQuery' framework  that basically provides functionality of maintaining contacts.  
 
 ## Building ##
 
 This project uses [gradle plugin]
 
 ```
-To build JAR and test
+To build the project, run following command from base directory of project.
 ./gradlew clean build
 
 
@@ -20,7 +20,7 @@ To build JAR and test
 After building project, please go to directory <project-base-dir>/build/libs and execute command :
  java -jar true-contacts-DEV-SNAPSHOT.jar
 
-Please open browser and type URL => http://localhost:8080/tc
+Please open google chrome browser and type URL => http://localhost:8080/tc
 ```
 
 ## Frameworks/Platforms used : ##
